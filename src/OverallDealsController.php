@@ -21,14 +21,14 @@ class OverallDealsController extends BitrixController
         $this->response = new ResponseService();
     }
 
-    public function processRequest(string $method, ?string $id): void
+    public function processRequest(string $method): void
     {
         if ($method !== 'GET') {
             $this->response->sendError(405, "Method Not Allowed");
             return;
         }
 
-        $cacheKey = "overall_deals_" . $id;
+        $cacheKey = "overall_deals_" . date('Y-m-d');
         $cached = $this->cache->get($cacheKey);
 
         if ($cached !== false) {

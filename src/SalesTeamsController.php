@@ -21,14 +21,14 @@ class SalesTeamsController extends BitrixController
         $this->response = new ResponseService();
     }
 
-    public function processRequest(string $method, ?string $id): void
+    public function processRequest(string $method): void
     {
         if ($method !== 'GET') {
             $this->response->sendError(405, "Method Not Allowed");
             return;
         }
 
-        $cacheKey = "sales_teams_" . $id;
+        $cacheKey = "sales_teams_" . date('Y-m-d');
         $cached = $this->cache->get($cacheKey);
 
         if ($cached !== false) {

@@ -21,14 +21,14 @@ class LastTransactionsController extends BitrixController
         $this->response = new ResponseService();
     }
 
-    public function processRequest(string $method, ?string $id): void
+    public function processRequest(string $method): void
     {
         if ($method !== 'GET') {
             $this->response->sendError(405, "Method Not Allowed");
             return;
         }
 
-        $cacheKey = "last_transactions_" . $id;
+        $cacheKey = "last_transactions_" . date('Y-m-d');
         $cached = $this->cache->get($cacheKey);
 
         if ($cached !== false) {

@@ -17,7 +17,6 @@ Logger::logRequest([
 ]);
 
 $endpoint = $_GET['endpoint'] ?? null;
-$id = $_GET['id'] ?? null;
 
 function snakeToPascal(string $string): string
 {
@@ -28,7 +27,7 @@ $controllerClass = $endpoint ? snakeToPascal($endpoint) . 'Controller' : null;
 
 if ($endpoint && class_exists($controllerClass)) {
     $controller = new $controllerClass();
-    $controller->processRequest($_SERVER['REQUEST_METHOD'], $id);
+    $controller->processRequest($_SERVER['REQUEST_METHOD']);
 } else {
     header("Content-Type: application/json");
     http_response_code(404);
