@@ -56,7 +56,7 @@ class SalesTeamsController extends BitrixController
                     continue;
                 }
 
-                $fullName = trim($employee['NAME'] ?? '' . ' ' . $employee['LAST_NAME'] ?? '');
+                $fullName = trim(($employee['NAME'] ?? '') . ' ' . ($employee['LAST_NAME'] ?? ''));
                 $position = $employee['ID'] == $headId ? null : ($employee['WORK_POSITION'] ?? null);
 
                 $members[] = [
