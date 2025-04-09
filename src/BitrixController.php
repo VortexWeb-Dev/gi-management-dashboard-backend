@@ -11,29 +11,39 @@ class BitrixController
         $this->config = require __DIR__ . '/../config/config.php';
     }
 
-    public function getDeals(array $filter = [], array $select = []): ?array
+    public function getDeals(array $filter = [], array $select = [], int $limit = null, array $order = []): ?array
     {
         $allDeals = [];
         $start = 0;
+
+        $select = empty($select) ? ['ID', 'TITLE'] : $select;
+        $order = empty($order) ? ['DATE_CREATE' => 'DESC'] : $order;
 
         do {
             $params = [
                 'filter' => $filter,
                 'select' => $select,
-                'start' => $start
+                'start'  => $start,
+                'order'  => $order,
             ];
 
             $response = CRest::call('crm.deal.list', $params);
 
             if (!isset($response['result'])) {
+                error_log('Bitrix CRM error: ' . json_encode($response));
                 break;
             }
 
             $allDeals = array_merge($allDeals, $response['result']);
+
+            if ($limit && count($allDeals) >= $limit) {
+                break;
+            }
+
             $start = $response['next'] ?? null;
         } while ($start !== null);
 
-        return $allDeals ?: null;
+        return array_slice($allDeals, 0, $limit) ?: null;
     }
 
     public function getUser(int $id): ?array
