@@ -1,9 +1,0 @@
-[2025-04-10 15:53:04]
-{
-    "method": "GET",
-    "uri": "/projects/green-island/management-dashboard-backend/?endpoint=dashboard",
-    "query": {
-        "endpoint": "dashboard"
-    }
-}
-
