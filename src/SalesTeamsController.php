@@ -31,7 +31,7 @@ class SalesTeamsController extends BitrixController
         $cacheKey = "sales_teams_" . date('Y-m-d');
         $cached = $this->cache->get($cacheKey);
 
-        if ($cached !== false) {
+        if ($cached !== false && $this->config['cache']['enabled']) {
             $this->response->sendSuccess(200, $cached);
             return;
         }

@@ -2,6 +2,7 @@
 
 return [
     'cache' => [
+        'enabled' => false,
         'expiry' => 300
     ],
     'LISTINGS_ENTITY_TYPE_ID' => 1084,
